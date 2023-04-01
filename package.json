@@ -1,0 +1,28 @@
+{
+  "name": "nilform",
+  "version": "0.0.1",
+  "description": "Tiny ~400b to parse form-data",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "author": "Herudi",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/herudi/nilform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/herudi/nilform/issues"
+  },
+  "keywords": [
+    "FormData",
+    "Multipart",
+    "Nodejs parse form-data",
+    "Small parse form-data",
+    "Nodejs parse multipart",
+    "Small parse multipart",
+    "Formidable alternatives"
+  ]
+}
