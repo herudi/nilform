@@ -1,12 +1,6 @@
 # Nilform
 
-Tiny ~400b to parse form-data.
-
-## Features
-
-- Just a small code ~400b.
-- Easy to use.
-- Automatic parsing of multiple fields/files.
+Tiny ~400b to parse form-data. Auto parses of multiple fields/files.
 
 ## Install
 
@@ -25,8 +19,8 @@ const http = require("http");
 const form = require("nilform");
 
 http.createServer(async (req, res) => {
-  const [field, file] = await form.parse(req);
-  console.log(field, file);
+  const [body, file] = await form.parse(req);
+  console.log(body, file);
   res.end("Nilform is simple");
 }).listen(3000);
 ```
@@ -40,14 +34,14 @@ const fs = require("node:fs/promises");
 
 http.createServer(async (req, res) => {
   if (req.url === "/api/upload" && req.method === "POST") {
-    const [field, file] = await form.parse(req);
+    const [body, file] = await form.parse(req);
 
     // save file
     const ab = await file.image.arrayBuffer();
     await fs.writeFile(file.image.name, Buffer.from(ab));
 
     res.setHeader("Content-Type", "text/html");
-    res.end(`<h1>Title: ${field.title}</h1>`);
+    res.end(`<h1>Title: ${body.title}</h1>`);
     return;
   }
   res.setHeader("Content-Type", "text/html");
@@ -68,16 +62,16 @@ const form = require("nilform");
 
 const app = express();
 
-const nilform = async (req, res, next) => {
+const nilform = () => async (req, res, next) => {
   if (form.hasForm(req)) {
-    const [field, file] = await form.parse(req);
-    req.body = field;
+    const [body, file] = await form.parse(req);
+    req.body = body;
     req.file = file;
   }
   next();
 };
 
-app.post("/", nilform, (req, res) => {
+app.post("/", nilform(), (req, res) => {
   console.log(req.body, req.file);
   res.send("success");
 });

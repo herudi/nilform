@@ -1,7 +1,6 @@
-function hasForm({ headers }) {
-  const type = headers["content-type"] || "";
-  return type.includes("multipart/form-data") ? true : false;
-}
+const hasForm = ({ headers }) =>
+  (headers["content-type"] || "").includes("multipart/form-data");
+
 function invoke(o, k, v) {
   if (o[k] !== void 0) {
     if (!Array.isArray(o[k])) o[k] = [o[k]];
